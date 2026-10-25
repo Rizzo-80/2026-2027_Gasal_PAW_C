@@ -11,8 +11,3 @@ foreach ($fruits as $buah) {
 echo ") <br>";
 echo "Nilai dengan indeks tertinggi : " . $fruits[array_key_last($fruits)];
 ?>
-<!-- $fruits[] = "Durian";
-$fruits[] = "Elderberry";
-$fruits[] = "Fig";
-$fruits[] = "Grape";
-$fruits[] = "Honeydew"; -->
