@@ -1,44 +1,46 @@
 <?php
 include 'koneksi.php';
+session_start();
 
-$query = mysqli_query($conn, "SELECT * FROM supplier");
+if(!isset($_SESSION['login'])){
+    header("Location: login.php");
+    exit;
+}
+
+$query = mysqli_query($conn, "SELECT * FROM barang");
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Data Supplier</title>
-    <h2>Data Master Supplier</h2>
+    <title></title>
 </head>
-<body> 
-    <a href="Tambah.php">Tambah Data</a>
-    <br><br>
+<body>
+    <a href="tambahbarang.php">Tambah Barang</a>
     <table border="1">
         <tr>
-            <th>No</th>
-            <th>Nama</th>
-            <th>Telp</th>
-            <th>Alamat</th>
-            <th>Tindakan</th>
+            <th>ID</th>
+            <th>Kode</th>
+            <th>Nama Barang</th>
+            <th>Harga</th>
+            <th>Stok</th>
+            <th>Aksi</th>
         </tr>
-        <?php
-        while ($data = mysqli_fetch_assoc($query)) {
-        ?>
+        <?php while ($barang = mysqli_fetch_array($query)) { ?>
         <tr>
-            <td><?php echo $data['id']; ?></td>
-            <td><?php echo $data['nama']; ?></td>
-            <td><?php echo $data['telp']; ?></td>
-            <td><?php echo $data['alamat']; ?></td>
+            <td><?php echo $barang['id']; ?></td>
+            <td><?php echo $barang['kode_barang']; ?></td>
+            <td><?php echo $barang['nama_barang']; ?></td>
+            <td>Rp <?php echo $barang['harga']; ?></td>
+            <td><?php echo $barang['stok']; ?></td>
             <td>
-                <a href="edit.php?id=<?php echo $data['id']; ?>">Edit</a> |
-                <a href="hapus.php?id=<?php echo $data['id']; ?>" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
+                <a href="editbarang.php?id=<?php echo $barang['id']; ?>">Edit</a> |
+                <a href="HapusBarang.php?id=<?php echo $barang['id']; ?>">Hapus</a>
             </td>
         </tr>
-        <?php
-        }
-        ?>
-
+        <?php } ?>
     </table>
 </body>
 </html>
